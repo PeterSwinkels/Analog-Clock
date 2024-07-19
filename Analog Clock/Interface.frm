@@ -52,29 +52,52 @@ Attribute VB_Exposed = False
 'This module contains this program's main interface window.
 Option Explicit
 
-'This procedure adjusts the window's size when it's activated.
-Private Sub Form_Activate()
-   Me.Width = AnalogClock.Width * Screen.TwipsPerPixelX
-   Me.Height = AnalogClock.Height * Screen.TwipsPerPixelY
-   Me.Width = Me.Width + (Me.Width - (Me.ScaleWidth * Screen.TwipsPerPixelX))
-   Me.Height = Me.Height + (Me.Height - (Me.ScaleHeight * Screen.TwipsPerPixelY))
-End Sub
-
 'This procedure initializes this window.
 Private Sub Form_Load()
-   With App
-      Me.Caption = .Title & " v" & CStr(.Major) & "." & CStr(.Minor) & CStr(.Revision) & " - by: " & .CompanyName
+On Error GoTo ErrorTrap
+
+   With Me
+      .Width = AnalogClock.Width * Screen.TwipsPerPixelX
+      .Height = AnalogClock.Height * Screen.TwipsPerPixelY
+      .Width = .Width + (.Width - (.ScaleWidth * Screen.TwipsPerPixelX))
+      .Height = .Height + (.Height - (.ScaleHeight * Screen.TwipsPerPixelY))
+      .Caption = ProgramInformation()
    End With
+   
+EndProcedure:
+   Exit Sub
+   
+ErrorTrap:
+   If HandleError() = vbIgnore Then Resume EndProcedure
+   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
 End Sub
 
 'This procedure displays information about this program.
 Private Sub InformationMenu_Click()
-   MsgBox App.Comments, vbInformation, Me.Caption
+On Error GoTo ErrorTrap
+
+   MsgBox App.Comments, vbInformation, ProgramInformation()
+   
+EndProcedure:
+   Exit Sub
+   
+ErrorTrap:
+   If HandleError() = vbIgnore Then Resume EndProcedure
+   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
 End Sub
 
 'This procedure closes this window.
 Private Sub QuitMenu_Click()
+On Error GoTo ErrorTrap
+   
    Unload Me
+   
+EndProcedure:
+   Exit Sub
+   
+ErrorTrap:
+   If HandleError() = vbIgnore Then Resume EndProcedure
+   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
 End Sub
 
 
