@@ -29,8 +29,8 @@ Begin VB.Form InterfaceWindow
       TabIndex        =   0
       Top             =   0
       Width           =   3960
-      _extentx        =   6985
-      _extenty        =   6985
+      _ExtentX        =   6985
+      _ExtentY        =   6985
    End
    Begin VB.Menu ProgramMainMenu 
       Caption         =   "&Program"
@@ -69,7 +69,7 @@ EndProcedure:
    
 ErrorTrap:
    If HandleError() = vbIgnore Then Resume EndProcedure
-   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
+   If HandleError(ReturnPreviousChoice:=True) = vbRetry Then Resume
 End Sub
 
 'This procedure displays information about this program.
@@ -83,7 +83,7 @@ EndProcedure:
    
 ErrorTrap:
    If HandleError() = vbIgnore Then Resume EndProcedure
-   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
+   If HandleError(ReturnPreviousChoice:=True) = vbRetry Then Resume
 End Sub
 
 'This procedure closes this window.
@@ -97,7 +97,7 @@ EndProcedure:
    
 ErrorTrap:
    If HandleError() = vbIgnore Then Resume EndProcedure
-   If HandleError(ReturnPreviousChoice:=True) = vbIgnore Then Resume
+   If HandleError(ReturnPreviousChoice:=True) = vbRetry Then Resume
 End Sub
 
 
